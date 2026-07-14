@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛖 Craftfolio — Frontend Client
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss)
+![DaisyUI](https://img.shields.io/badge/DaisyUI-v5-5A0EF8?logo=daisyui)
+![Better Auth](https://img.shields.io/badge/Better--Auth-v1-green)
 
-First, run the development server:
+The Next.js 15 App Router frontend for **Craftfolio** — a marketplace for handmade artisan goods. Built in strict TypeScript with Tailwind v4, DaisyUI v5, and Better-Auth.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## ✨ Key Features
+
+### 🏠 Homepage
+- **Auto-playing HeroBanner** with 3 slides, prev/next controls, and animated text
+- **Featured Items** grid fetched live from `/items/featured` with skeleton loaders
+- **Categories Grid** — 6 craft categories with hover-reveal descriptions
+- **How It Works** — 4-step process visualization
+- **Statistics** — live data from `/stats` rendered with **Recharts BarChart**
+- **Testimonials** — 3 verified buyer reviews
+- **CTA Section** — gradient banner with dual CTAs
+
+### 🔍 Explore (`/explore`)
+- Full-text search by title, description, category, seller name
+- Category filter pills (9 categories)
+- Sort: Newest / Highest Rated / Price Asc / Price Desc
+- Expandable price range filter (min/max)
+- Paginated results (12 per page)
+
+### 📦 Item Detail (`/items/[id]`)
+- Full-bleed image, price, description, tags, seller info
+- Review list with authenticated delete
+- Review submission form with 1–5 star rating
+
+### 🔐 Authentication (Better-Auth)
+- Email/password login and registration with Google OAuth
+- Protected routes: `/items/add`, `/items/manage` via Next.js middleware
+- Demo credentials visible on login page
+
+### 🧺 Seller Dashboard
+- **Add Item** (`/items/add`) — full form with all fields
+- **My Items** (`/items/manage`) — listing with edit/delete
+- **Edit Item** (`/items/edit/[id]`) — pre-filled form, owner-verified
+
+### 📄 Static Pages
+- **About** — brand story, values, team
+- **Contact** — contact info + message form
+
+---
+
+## 🛠️ Tech Stack
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Next.js | 15 | App Router, SSR, Routing |
+| TypeScript | Strict | Type Safety |
+| Tailwind CSS | v4 | Styling |
+| DaisyUI | v5 | UI Components |
+| Better-Auth | latest | Authentication |
+| MongoDB | Native | DB Adapter |
+| Recharts | latest | Charts |
+| React Hook Form | latest | Forms |
+| React Hot Toast | latest | Notifications |
+| Animate.css | latest | Transitions |
+| Lucide React | latest | Icons |
+
+---
+
+## 🎨 Design Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| Primary | `#6366F1` | Indigo — main brand color |
+| Secondary | `#F59E0B` | Amber — accents |
+| Accent | `#10B981` | Emerald — success |
+| Foreground | `#1F2937` | Gray-800 — text |
+| Font Sans | Inter | Body text |
+| Font Display | Outfit | Headings |
+
+---
+
+## ⚙️ Environment Setup
+
+Create `.env.local` in the root directory:
+
+```env
+BETTER_AUTH_SECRET=your_secret_here_min_32_chars_long
+BETTER_AUTH_URL=http://localhost:3000
+MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+NEXT_PUBLIC_SERVER_URL=http://localhost:5000
+ADMIN_EMAIL=admin@craftfolio.com
+ADMIN_PASSWORD=Admin@1234
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 💻 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Demo Credentials
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Role  | Email | Password |
+|-------|-------|---------|
+| User  | demo@craftfolio.com | Demo@1234 |
+| Admin | admin@craftfolio.com | Admin@1234 |
