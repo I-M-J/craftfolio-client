@@ -8,7 +8,7 @@ import { Star, ArrowLeft, Tag, User, Calendar, Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSession } from "@/lib/auth-client";
-import { authClient } from "@/lib/auth-client";
+import { getJwtToken } from "@/lib/getJwtToken";
 import { Item, Review } from "@/types";
 
 interface ReviewFormData {
@@ -72,8 +72,7 @@ export default function ItemDetailPage() {
         }
 
         try {
-            const { data: tokenData } = await authClient.getToken();
-            const token = tokenData?.token;
+            const token = await getJwtToken();
 
             const res = await fetch(`${SERVER}/reviews`, {
                 method: "POST",
@@ -110,8 +109,7 @@ export default function ItemDetailPage() {
     const handleDeleteReview = async (reviewId: string) => {
         if (!session?.user) return;
         try {
-            const { data: tokenData } = await authClient.getToken();
-            const token = tokenData?.token;
+            const token = await getJwtToken();
 
             const res = await fetch(`${SERVER}/reviews/${reviewId}`, {
                 method: "DELETE",

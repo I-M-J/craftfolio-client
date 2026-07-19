@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useSession } from "@/lib/auth-client";
-import { authClient } from "@/lib/auth-client";
+import { getJwtToken } from "@/lib/getJwtToken";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Hammer, Image as ImageIcon, Tag, DollarSign, BookOpen, FileText, Layers } from "lucide-react";
@@ -27,8 +27,7 @@ export default function AddItemPage() {
         }
 
         try {
-            const { data: tokenData } = await authClient.getToken();
-            const token = tokenData?.token;
+            const token = await getJwtToken();
 
             const payload = {
                 title: data.title,

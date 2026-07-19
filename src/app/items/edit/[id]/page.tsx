@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useSession } from "@/lib/auth-client";
-import { authClient } from "@/lib/auth-client";
+import { getJwtToken } from "@/lib/getJwtToken";
 import toast from "react-hot-toast";
 import { Pencil, Layers, DollarSign, FileText, BookOpen, Image as ImageIcon, Tag } from "lucide-react";
 import { Item, AddItemFormData } from "@/types";
@@ -62,8 +62,7 @@ export default function EditItemPage() {
 
     const onSubmit = async (data: AddItemFormData) => {
         try {
-            const { data: tokenData } = await authClient.getToken();
-            const token = tokenData?.token;
+        const token = await getJwtToken();
 
             const payload = {
                 title: data.title,

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth-client";
-import { authClient } from "@/lib/auth-client";
+import { getJwtToken } from "@/lib/getJwtToken";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -39,8 +39,7 @@ export default function ManageItemsPage() {
         if (!confirmed) return;
 
         try {
-            const { data: tokenData } = await authClient.getToken();
-            const token = tokenData?.token;
+            const token = await getJwtToken();
 
             const res = await fetch(`${SERVER}/items/${itemId}`, {
                 method: "DELETE",
