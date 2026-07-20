@@ -35,14 +35,14 @@ const categories = [
         description: "Soy candles, balms, and artisan soaps",
         icon: Flame,
         color: "from-pink-400 to-rose-500",
-        image: "https://images.unsplash.com/photo-1603905987292-15b9ef61a913?w=600&q=80",
+        image: "https://m.media-amazon.com/images/S/aplus-media-library-service-media/5a29bc4f-27b3-48c9-8a09-cb7a8dbb0adc.__CR0,0,1600,1200_PT0_SX800_V1___.jpg",
     },
     {
         name: "Textile & Fiber",
         description: "Woven textiles, macramé, and embroidery",
         icon: Star,
         color: "from-sky-400 to-blue-500",
-        image: "https://images.unsplash.com/photo-1611500815004-52a0de89a1e6?w=600&q=80",
+        image: "https://i.pinimg.com/originals/6b/b3/99/6bb399bc151b882366a0caf9ffb92e63.jpg",
     },
 ];
 

@@ -103,7 +103,7 @@ export default function AboutPage() {
 
                         <div className="relative h-80 rounded-2xl overflow-hidden">
                             <Image
-                                src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80"
+                                src="https://images.squarespace-cdn.com/content/v1/61b8fa7f6d95563854820f18/479b6677-e0bd-499b-8203-4ba70a548672/Wheel_1_Marialice-25.jpg"
                                 alt="Artisan at work"
                                 fill
                                 className="object-cover"
