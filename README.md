@@ -40,8 +40,13 @@ The Next.js 15 App Router frontend for **Craftfolio** — a marketplace for hand
 
 ### 🧺 Seller Dashboard
 - **Add Item** (`/items/add`) — full form with all fields
-- **My Items** (`/items/manage`) — listing with edit/delete
+- **My Items** (`/items/manage`) — listing with edit/delete (uses database-level email filtering)
 - **Edit Item** (`/items/edit/[id]`) — pre-filled form, owner-verified
+
+### 🏪 Artisan Storefronts (`/sellers/[email]`)
+- **Public shop page** showing seller profile details, member registration age, and shop statistics (total listings, average rating of listed items, total reviews).
+- **Product grid** displaying only the products created by the respective seller.
+- **Quick Links** on product details page ("By [Seller Name]") redirecting directly to their store page.
 
 ### 📄 Static Pages
 - **About** — brand story, values, team
@@ -110,7 +115,10 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🔐 Demo Credentials
 
-| Role  | Email | Password |
-|-------|-------|---------|
-| User  | demo@craftfolio.com | Demo@1234 |
-| Admin | admin@craftfolio.com | Admin@1234 |
+| Role | Email | Password | Assigned Shop Creations |
+|------|-------|----------|-------------------------|
+| Admin | admin@craftfolio.com | Admin@1234 | Platform Administration |
+| Demo User | demo@craftfolio.com | Demo@1234 | General Testing |
+| Seller (Maya) | maya@craftfolio.com | Seller@1234 | Ceramics, Candles, Flowers, Beeswax |
+| Seller (Layla) | layla@craftfolio.com | Seller@1234 | Fiber Art, Woodwork, Tote Bags, Pens |
+| Seller (James) | james@craftfolio.com | Seller@1234 | Leather, Jewelry, Linen, Origami |
