@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { signUp, signIn, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Hammer, User, Mail, Lock, Image as ImageIcon } from "lucide-react";
 
 interface RegisterFormData {
@@ -18,6 +18,7 @@ interface RegisterFormData {
 export default function RegisterPage() {
     const router = useRouter();
     const { data: session, isPending } = useSession();
+    const [mounted, setMounted] = useState(false);
 
     const {
         register,
@@ -26,11 +27,15 @@ export default function RegisterPage() {
     } = useForm<RegisterFormData>();
 
     useEffect(() => {
-        if (session?.user) {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (mounted && session?.user) {
             toast.success("You are already signed in");
             router.replace("/");
         }
-    }, [session, router]);
+    }, [session, router, mounted]);
 
     const onSubmit = async (data: RegisterFormData) => {
         const { error } = await signUp.email({
@@ -63,7 +68,7 @@ export default function RegisterPage() {
         await signIn.social({ provider: "google" });
     };
 
-    if (isPending || session?.user) {
+    if (!mounted || isPending || session?.user) {
         return (
             <section className="bg-[#F5F5F4] min-h-dvh flex items-center justify-center">
                 <span className="animate__animated animate__fadeIn loading loading-ring loading-md text-primary" />

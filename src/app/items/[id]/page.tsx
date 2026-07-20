@@ -20,8 +20,13 @@ export default function ItemDetailPage() {
     const { id } = useParams<{ id: string }>();
     const router = useRouter();
     const { data: session } = useSession();
+    const [mounted, setMounted] = useState(false);
 
     const [item, setItem] = useState<Item | null>(null);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
     const [reviews, setReviews] = useState<Review[]>([]);
     const [loadingItem, setLoadingItem] = useState(true);
     const [loadingReviews, setLoadingReviews] = useState(true);
@@ -216,7 +221,7 @@ export default function ItemDetailPage() {
                         </div>
 
                         {/* If owner, show edit/delete */}
-                        {session?.user?.email === item.sellerEmail && (
+                        {mounted && session?.user?.email === item.sellerEmail && (
                             <div className="flex gap-3 pt-2">
                                 <Link
                                     href={`/items/edit/${item._id}`}
@@ -289,7 +294,7 @@ export default function ItemDetailPage() {
                             Leave a Review
                         </h2>
 
-                        {!session?.user ? (
+                        {!mounted || !session?.user ? (
                             <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 text-center">
                                 <p className="text-stone-600 text-sm mb-4">You must be signed in to leave a review.</p>
                                 <Link href="/login" className="btn h-fit bg-[#6366F1] text-white px-6 py-2.5 text-sm font-semibold rounded-full hover:bg-[#4F46E5] transition-all">

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { signIn, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Hammer, Mail, Lock } from "lucide-react";
 
 interface LoginFormData {
@@ -19,6 +19,7 @@ export default function LoginPage() {
     const callbackUrl = searchParams.get("callbackUrl") || "/";
 
     const { data: session, isPending } = useSession();
+    const [mounted, setMounted] = useState(false);
 
     const {
         register,
@@ -27,11 +28,15 @@ export default function LoginPage() {
     } = useForm<LoginFormData>();
 
     useEffect(() => {
-        if (session?.user) {
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (mounted && session?.user) {
             toast.success("You are already signed in");
             router.replace(callbackUrl);
         }
-    }, [session, router, callbackUrl]);
+    }, [session, router, callbackUrl, mounted]);
 
     const onSubmit = async (data: LoginFormData) => {
         const { error } = await signIn.email({
@@ -56,7 +61,7 @@ export default function LoginPage() {
         });
     };
 
-    if (isPending || session?.user) {
+    if (!mounted || isPending || session?.user) {
         return (
             <section className="bg-[#F5F5F4] min-h-dvh flex items-center justify-center">
                 <span className="animate__animated animate__fadeIn loading loading-ring loading-md text-primary" />

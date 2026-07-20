@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signOut } from "@/lib/auth-client";
 import {
     Menu,
@@ -37,6 +37,11 @@ export default function Navbar() {
     const { data: session, isPending } = useSession();
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const handleSignOut = async () => {
         await signOut();
@@ -44,7 +49,9 @@ export default function Navbar() {
         setMenuOpen(false);
     };
 
-    const navLinks = session?.user ? loggedInLinks : loggedOutLinks;
+    const showSessionState = mounted && !isPending;
+    const hasUser = showSessionState && !!session?.user;
+    const navLinks = hasUser ? loggedInLinks : loggedOutLinks;
 
     return (
         <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200/80 shadow-sm">
@@ -77,7 +84,7 @@ export default function Navbar() {
 
                     {/* Right Side */}
                     <div className="hidden md:flex items-center gap-3">
-                        {isPending ? (
+                        {!mounted || isPending ? (
                             <div className="w-8 h-8 rounded-full bg-indigo-100 animate-pulse" />
                         ) : session?.user ? (
                             <div className="relative">
@@ -163,9 +170,9 @@ export default function Navbar() {
 
                     {/* Mobile menu button */}
                     <div className="md:hidden flex items-center gap-2">
-                        {session?.user && (
+                        {hasUser && (
                             <div className="w-7 h-7 rounded-full bg-[#6366F1] flex items-center justify-center text-white text-xs font-bold">
-                                {session.user.name?.[0]?.toUpperCase() || "U"}
+                                {session?.user?.name?.[0]?.toUpperCase() || "U"}
                             </div>
                         )}
                         <button
@@ -193,7 +200,7 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <div className="pt-2 border-t border-stone-100 flex flex-col gap-2">
-                            {session?.user ? (
+                            {hasUser && session?.user ? (
                                 <>
                                     <div className="px-3 py-2.5 bg-indigo-50 rounded-xl">
                                         <p className="text-sm font-semibold text-stone-800 truncate">{session.user.name}</p>
