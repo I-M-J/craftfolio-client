@@ -4,7 +4,11 @@ import { MongoClient } from "mongodb";
 import { nextCookies } from "better-auth/next-js";
 import { jwt } from "better-auth/plugins";
 
-const client = new MongoClient(process.env.MONGO_URI as string);
+if (!process.env.MONGO_URI) {
+    console.error("MONGO_URI environment variable is not set.");
+}
+
+const client = new MongoClient(process.env.MONGO_URI || "mongodb://localhost:27017");
 
 export const auth = betterAuth({
     database: mongodbAdapter(client.db("craftfolio_db")),
