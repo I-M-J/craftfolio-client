@@ -113,4 +113,6 @@ const seedAuthUsers = async () => {
     }
 };
 
-seedAuthUsers();
+if (process.env.NEXT_PHASE !== "phase-production-build") {
+    seedAuthUsers();
+}
