@@ -20,11 +20,10 @@ export default function ManageItemsPage() {
         if (!session?.user?.email) return;
         const fetchMyItems = async () => {
             try {
-                const res = await fetch(`${SERVER}/items?search=${encodeURIComponent(session.user.email)}&limit=50`);
+                const res = await fetch(`${SERVER}/items?sellerEmail=${encodeURIComponent(session.user.email)}&limit=50`);
                 if (!res.ok) throw new Error("Failed");
                 const data = await res.json() as { items: Item[] };
-                // Filter client-side to only this seller's items
-                setItems(data.items.filter((item) => item.sellerEmail === session.user.email));
+                setItems(data.items);
             } catch {
                 setItems([]);
             } finally {

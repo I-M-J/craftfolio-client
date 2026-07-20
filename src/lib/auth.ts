@@ -82,6 +82,31 @@ const seedAuthUsers = async () => {
             { upsert: true }
         );
 
+        // Seed 3 sellers
+        const sellers = [
+            { name: "Maya Chen", email: "maya@craftfolio.com" },
+            { name: "Layla Osman", email: "layla@craftfolio.com" },
+            { name: "James Kowalski", email: "james@craftfolio.com" },
+        ];
+
+        for (const seller of sellers) {
+            const existingSeller = await db.collection("user").findOne({ email: seller.email });
+            if (!existingSeller) {
+                await auth.api.signUpEmail({
+                    body: {
+                        email: seller.email,
+                        password: "Seller@1234",
+                        name: seller.name,
+                    },
+                });
+            }
+            await db.collection("users").updateOne(
+                { email: seller.email },
+                { $set: { name: seller.name, role: "user", createdAt: new Date() } },
+                { upsert: true }
+            );
+        }
+
         console.log("Auth users seeded successfully.");
     } catch (err) {
         console.error("Auth seeding error:", (err as Error).message);

@@ -24,8 +24,21 @@ export default function LoginPage() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors, isSubmitting },
     } = useForm<LoginFormData>();
+
+    const handleQuickLogin = (email: string) => {
+        setValue("email", email);
+        if (email === "admin@craftfolio.com") {
+            setValue("password", "Admin@1234");
+        } else if (email === "demo@craftfolio.com") {
+            setValue("password", "Demo@1234");
+        } else {
+            setValue("password", "Seller@1234");
+        }
+        toast.success("Credentials populated! Click Sign In to log in.");
+    };
 
     useEffect(() => {
         setMounted(true);
@@ -145,10 +158,42 @@ export default function LoginPage() {
                     </Link>
                 </p>
 
-                <div className="mt-2 p-4 bg-indigo-50 rounded-xl text-xs text-stone-600 space-y-1">
-                    <p className="font-semibold text-stone-700">Demo Credentials:</p>
-                    <p>User: <span className="font-mono">demo@craftfolio.com</span> / <span className="font-mono">Demo@1234</span></p>
-                    <p>Admin: <span className="font-mono">admin@craftfolio.com</span> / <span className="font-mono">Admin@1234</span></p>
+                <div className="mt-4 p-4 bg-indigo-50/70 border border-indigo-100/50 rounded-2xl text-xs text-stone-600 space-y-3">
+                    <p className="font-bold text-stone-800 text-sm">Quick Developer Login:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                        <button
+                            type="button"
+                            onClick={() => handleQuickLogin("admin@craftfolio.com")}
+                            className="px-2.5 py-1.5 bg-white hover:bg-indigo-100 border border-indigo-200 rounded-lg text-stone-700 font-medium transition-colors cursor-pointer"
+                        >
+                            Admin Account
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => handleQuickLogin("demo@craftfolio.com")}
+                            className="px-2.5 py-1.5 bg-white hover:bg-indigo-100 border border-indigo-200 rounded-lg text-stone-700 font-medium transition-colors cursor-pointer"
+                        >
+                            Demo Account
+                        </button>
+                    </div>
+                    <div className="space-y-1">
+                        <label className="block text-stone-600 font-medium mb-1">Select a Marketplace Seller:</label>
+                        <select
+                            onChange={(e) => {
+                                if (e.target.value) {
+                                    handleQuickLogin(e.target.value);
+                                    e.target.value = "";
+                                }
+                            }}
+                            className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-700 focus:outline-none focus:ring-1 focus:ring-indigo-400 cursor-pointer"
+                            defaultValue=""
+                        >
+                            <option value="" disabled>Choose seller...</option>
+                            <option value="maya@craftfolio.com">Maya Chen (Ceramics, Candles, Flowers, Beeswax)</option>
+                            <option value="layla@craftfolio.com">Layla Osman (Fiber Art, Woodwork, Tote Bags, Pens)</option>
+                            <option value="james@craftfolio.com">James Kowalski (Leather, Jewelry, Linen, Origami)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>

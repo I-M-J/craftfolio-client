@@ -200,7 +200,7 @@ export default function ItemDetailPage() {
                         <div className="space-y-2 pt-2">
                             <div className="flex items-center gap-2 text-sm text-stone-500">
                                 <User className="w-4 h-4 text-[#6366F1]" />
-                                <span>By <span className="font-semibold text-foreground">{item.sellerName}</span></span>
+                                <span>By <Link href={`/sellers/${encodeURIComponent(item.sellerEmail)}`} className="font-semibold text-[#6366F1] hover:text-[#4F46E5] hover:underline transition-colors">{item.sellerName}</Link></span>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-stone-500">
                                 <Calendar className="w-4 h-4 text-[#6366F1]" />
