@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ItemCard from "@/components/items/ItemCard";
 import SkeletonCard from "@/components/items/SkeletonCard";
 import { Item } from "@/types";
+import { SERVER_URL } from "@/lib/constants";
 
 export default function FeaturedItems() {
     const [items, setItems] = useState<Item[]>([]);
@@ -12,7 +13,7 @@ export default function FeaturedItems() {
     useEffect(() => {
         const fetchFeatured = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000"}/items/featured`);
+                const res = await fetch(`${SERVER_URL}/items/featured`);
                 if (!res.ok) throw new Error("Failed to fetch");
                 const data = await res.json() as Item[];
                 setItems(data);

@@ -7,6 +7,7 @@ import { useSession } from "@/lib/auth-client";
 import ItemCard from "@/components/items/ItemCard";
 import { Item } from "@/types";
 import { ArrowLeft, Calendar, Mail, Package, Star, Store, User } from "lucide-react";
+import { SERVER_URL } from "@/lib/constants";
 
 interface SellerProfile {
     name: string;
@@ -27,7 +28,7 @@ export default function SellerProfilePage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const SERVER = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    const SERVER = SERVER_URL;
 
     useEffect(() => {
         setMounted(true);

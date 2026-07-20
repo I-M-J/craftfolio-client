@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useSession } from "@/lib/auth-client";
 import { getJwtToken } from "@/lib/getJwtToken";
 import { Item, Review } from "@/types";
+import { SERVER_URL } from "@/lib/constants";
 
 interface ReviewFormData {
     rating: string;
@@ -31,7 +32,7 @@ export default function ItemDetailPage() {
     const [loadingItem, setLoadingItem] = useState(true);
     const [loadingReviews, setLoadingReviews] = useState(true);
 
-    const SERVER = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    const SERVER = SERVER_URL;
 
     const {
         register,

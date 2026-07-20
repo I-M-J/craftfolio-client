@@ -8,8 +8,7 @@ import { getJwtToken } from "@/lib/getJwtToken";
 import toast from "react-hot-toast";
 import { Pencil, Layers, DollarSign, FileText, BookOpen, Image as ImageIcon, Tag } from "lucide-react";
 import { Item, AddItemFormData } from "@/types";
-
-const CATEGORIES = ["Ceramics", "Woodwork", "Jewelry", "Leather", "Candles & Soaps", "Textile & Fiber", "Mixed Media", "Paper Craft", "Other"];
+import { SERVER_URL, CATEGORIES } from "@/lib/constants";
 
 export default function EditItemPage() {
     const { id } = useParams<{ id: string }>();
@@ -18,7 +17,7 @@ export default function EditItemPage() {
     const [item, setItem] = useState<Item | null>(null);
     const [loadingItem, setLoadingItem] = useState(true);
 
-    const SERVER = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    const SERVER = SERVER_URL;
 
     const {
         register,
@@ -62,7 +61,7 @@ export default function EditItemPage() {
 
     const onSubmit = async (data: AddItemFormData) => {
         try {
-        const token = await getJwtToken();
+            const token = await getJwtToken();
 
             const payload = {
                 title: data.title,

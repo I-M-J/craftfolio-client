@@ -6,8 +6,9 @@ import ItemCard from "@/components/items/ItemCard";
 import SkeletonCard from "@/components/items/SkeletonCard";
 import { Item, ItemsResponse } from "@/types";
 import { Search, SlidersHorizontal, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { SERVER_URL, CATEGORIES as ALL_CATEGORIES } from "@/lib/constants";
 
-const CATEGORIES = ["All", "Ceramics", "Woodwork", "Jewelry", "Leather", "Candles & Soaps", "Textile & Fiber", "Mixed Media", "Paper Craft"];
+const CATEGORIES = ["All", ...ALL_CATEGORIES];
 const SORT_OPTIONS = [
     { value: "newest", label: "Newest First" },
     { value: "rating", label: "Highest Rated" },
@@ -45,7 +46,7 @@ export default function ExplorePage() {
             params.set("page", String(page));
             params.set("limit", "12");
 
-            const url = `${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000"}/items?${params.toString()}`;
+            const url = `${SERVER_URL}/items?${params.toString()}`;
             const res = await fetch(url);
             if (!res.ok) throw new Error("Failed to fetch");
             const data = await res.json() as ItemsResponse;

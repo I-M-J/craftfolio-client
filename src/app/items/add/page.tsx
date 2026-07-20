@@ -7,8 +7,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Hammer, Image as ImageIcon, Tag, DollarSign, BookOpen, FileText, Layers } from "lucide-react";
 import { AddItemFormData } from "@/types";
-
-const CATEGORIES = ["Ceramics", "Woodwork", "Jewelry", "Leather", "Candles & Soaps", "Textile & Fiber", "Mixed Media", "Paper Craft", "Other"];
+import { SERVER_URL, CATEGORIES } from "@/lib/constants";
 
 export default function AddItemPage() {
     const { data: session } = useSession();
@@ -40,7 +39,7 @@ export default function AddItemPage() {
                 tags: data.tags ? data.tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
             };
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000"}/items`, {
+            const res = await fetch(`${SERVER_URL}/items`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

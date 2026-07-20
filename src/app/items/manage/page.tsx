@@ -8,13 +8,14 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { Plus, Pencil, Trash2, Package, Star, Tag } from "lucide-react";
 import { Item } from "@/types";
+import { SERVER_URL } from "@/lib/constants";
 
 export default function ManageItemsPage() {
     const { data: session } = useSession();
     const [items, setItems] = useState<Item[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const SERVER = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+    const SERVER = SERVER_URL;
 
     useEffect(() => {
         if (!session?.user?.email) return;

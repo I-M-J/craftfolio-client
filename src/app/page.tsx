@@ -1,4 +1,3 @@
-import "animate.css";
 import HeroBanner from "@/components/home/HeroBanner";
 import FeaturedItems from "@/components/home/FeaturedItems";
 import CategoriesGrid from "@/components/home/CategoriesGrid";

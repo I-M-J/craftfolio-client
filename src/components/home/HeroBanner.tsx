@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,13 +31,16 @@ const slides = [
 export default function HeroBanner() {
     const [current, setCurrent] = useState(0);
 
-    const goNext = () => setCurrent((prev) => (prev + 1) % slides.length);
+    const goNext = useCallback(
+        () => setCurrent((prev) => (prev + 1) % slides.length),
+        []
+    );
     const goPrev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
     useEffect(() => {
         const timer = setInterval(goNext, 5500);
         return () => clearInterval(timer);
-    }, []);
+    }, [goNext]);
 
     const slide = slides[current];
 

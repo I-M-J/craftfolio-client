@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { StatItem } from "@/types";
+import { SERVER_URL } from "@/lib/constants";
 
 const COLORS = ["#6366F1", "#F59E0B", "#10B981", "#EF4444", "#8B5CF6", "#EC4899", "#F97316", "#14B8A6"];
 
@@ -20,7 +21,7 @@ export default function Statistics() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000"}/stats`);
+                const res = await fetch(`${SERVER_URL}/stats`);
                 if (!res.ok) throw new Error("Failed");
                 const json = await res.json() as StatItem[];
                 setData(json);

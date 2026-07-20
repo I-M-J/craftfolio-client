@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Hammer, User, Mail, Lock, Image as ImageIcon } from "lucide-react";
+import { SERVER_URL } from "@/lib/constants";
 
 interface RegisterFormData {
     name: string;
@@ -53,7 +54,7 @@ export default function RegisterPage() {
 
         // Sync user to craftfolio_db users collection
         try {
-            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000"}/users`, {
+            await fetch(`${SERVER_URL}/users`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name: data.name, email: data.email, image: data.image }),
